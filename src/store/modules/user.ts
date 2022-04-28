@@ -6,11 +6,20 @@ export default {
         return {
             userInfo: {
                 id: '',
-                token: ''
+                token: '',
+                avatar: '',
+                account: '',
+                mobile: '',
+                nickname: ''
             }
         }
     },
-    mutations: {},
+    mutations: {
+         // 修改用户信息的方法
+        setUser(state: any, payload: Object){
+            state.userInfo = payload
+        }
+    },
     actions: {},
     getters: {}
 }
