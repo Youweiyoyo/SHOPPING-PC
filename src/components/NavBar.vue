@@ -1,7 +1,10 @@
 <script lang="ts" setup>
     import { useStore } from "vuex";
+    import { computed } from 'vue'
     const store = useStore()
-    const { userInfo } = store.state.user
+    const userInfo = computed(() => {
+        return store.state.user.userInfo
+    })
 </script>
 
 <template>
