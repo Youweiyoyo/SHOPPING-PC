@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  import request from "./utils/request";
+
+
 </script>
 
 <template>
+  <router-view />
 </template>
-
 <style>
 </style>
