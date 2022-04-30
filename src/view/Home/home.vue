@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="homePage">
+  <div class="xtx-home-page">
     首页
   </div>
 </template>

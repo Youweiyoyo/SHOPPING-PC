@@ -34,7 +34,7 @@ axios.interceptors.response.use((res)=> {
 })
 
 // 请求工具函数
-export default (url: String, method: String, data: Object) => {
+export default (url: String, method: String, data?: Object) => {
     return axios ({
         url,
         method,

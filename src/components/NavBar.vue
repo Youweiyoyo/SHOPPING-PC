@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="app-topnav">
+  <nav class="app-topnav">
     <div class="container">
       <ul>
         <template v-if="userInfo.token">
@@ -26,7 +26,7 @@
         <li><a href="javascript:;"><i class="iconfont icon-phone"></i>手机版</a></li>
       </ul>
     </div>
-  </div>
+  </nav>
 </template>
 
 <style lang="less" scoped>
