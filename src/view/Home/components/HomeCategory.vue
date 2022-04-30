@@ -1,7 +1,7 @@
 <template>
-  <div class='home-category'>
+  <div class='home-category' @mouseleave="currentGoryId = null">
     <ul class="menu">
-      <li v-for="item in HomeCategoryList" :key="item.id" @mouseenter="currentGoryId = item.id">
+      <li :class="{active: currentGoryId === item.id}" v-for="item in HomeCategoryList" :key="item.id" @mouseenter="currentGoryId = item.id">
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
         <template v-for="sub in item.children" :key="sub.id">
           <RouterLink :to="`/category/sub/${sub.id}`">{{sub.name}}</RouterLink>
@@ -10,7 +10,7 @@
     </ul>
     <!--  弹层  -->
     <div class="layer">
-      <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+      <h4>{{ currentGory && currentGory.id === 'brand' ? '品牌推荐' : '分类推荐' }} <small>根据您的购买或浏览记录推荐</small></h4>
       <ul v-if="currentGory && currentGory.goods && currentGory.goods.length">
         <li v-for="item in currentGory?.goods" :key="item.id">
           <RouterLink to="/">
@@ -85,7 +85,7 @@ brand.brands = result
       padding-left: 40px;
       height: 50px;
       line-height: 50px;
-      &:hover {
+      &:hover, &:active {
         background: @xtxColor;
       }
       a {
