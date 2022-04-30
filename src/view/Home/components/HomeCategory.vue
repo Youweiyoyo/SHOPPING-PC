@@ -23,18 +23,33 @@
           </RouterLink>
         </li>
       </ul>
+      <!--  品牌  -->
+      <ul v-if="currentGory && currentGory.brands && currentGory.brands.length">
+        <li class="brand" v-for="item in currentGory.brands" :key="item.id">
+          <RouterLink to="/">
+            <img :src="item.picture" alt="">
+            <div class="info">
+              <p class="place"><i class="iconfont icon-dingwei"></i>{{item.place}}</p>
+              <p class="name ellipsis">{{item.name}}</p>
+              <p class="desc ellipsis-2">{{item.desc}}</p>
+            </div>
+          </RouterLink>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { getBrandInfo } from '../../../api/home'
 import { useStore } from 'vuex'
 import { computed, reactive, ref } from 'vue'
 const store = useStore()
 const brand = reactive({
   id: 'brand',
   name: '品牌',
-  children: [{ id: 'brand-chilren', name: '品牌推荐' }]
+  children: [{ id: 'brand-chilren', name: '品牌推荐' }],
+  brands: []
 })
 const HomeCategoryList = computed(() => {
   const list = store.state.category.list.map((item: any) => {
@@ -53,6 +68,9 @@ const currentGoryId = ref(null)
 const currentGory = computed(() => {
   return HomeCategoryList.value.find((item: Object) => item.id === currentGoryId.value)
 })
+
+const { result } = await getBrandInfo()
+brand.brands = result
 </script>
 
 <style scoped lang="less">
@@ -142,6 +160,24 @@ const currentGory = computed(() => {
             i {
               font-size: 16px;
             }
+          }
+        }
+      }
+    }
+    li.brand {
+      height: 180px;
+      a {
+        align-items: flex-start;
+        img {
+          width: 120px;
+          height: 160px;
+        }
+        .info {
+          p {
+            margin-top: 8px;
+          }
+          .place {
+            color: #999;
           }
         }
       }

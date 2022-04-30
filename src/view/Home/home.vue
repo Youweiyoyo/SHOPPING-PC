@@ -8,7 +8,12 @@ import HomeCateGory from './components/HomeCategory.vue'
     <div class="home-enter">
       <div class="container">
         <!-- 分类页 -->
-        <HomeCateGory/>
+        <Suspense>
+          <HomeCateGory/>
+          <template #fallback>
+            Loading....
+          </template>
+        </Suspense>
       </div>
     </div>
   </div>
