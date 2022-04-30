@@ -5,17 +5,23 @@
   const cateGoryList = computed(() => {
       return store.state.category.list
   })
+  const GoryShow = (itemId) => {
+    store.commit('category/show', itemId)
+  }
+  const GoryHide = (itemId) => {
+    store.commit('category/hide', itemId)
+  }
 </script>
 
 <template>
   <ul class="navs">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in cateGoryList" :key="item.id">
-      <RouterLink to="/">{{item.name}}</RouterLink>
-      <div class="layer">
+    <li v-for="item in cateGoryList" :key="item.id" @mouseenter="GoryShow(item.id)" @mouseleave="GoryHide(item.id)">
+      <RouterLink :to='`/category/${item.id}`' @click="GoryHide(item.id)">{{item.name}}</RouterLink>
+      <div class="layer" :class="{open: item.open}">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <RouterLink  to="/">
+            <RouterLink  :to='`/category/sub/${sub.id}`' @click="GoryHide(item.id)">
               <img :src="sub.picture" alt="">
               <p>{{sub.name}}</p>
             </RouterLink>
@@ -49,14 +55,14 @@
           color: @xtxColor;
           border-bottom: 1px solid @xtxColor;
         }
-        > .layer {
-          height: 132px;
-          opacity: 1;
-        }
       }
     }
   }
   .layer {
+    &.open {
+      height: 132px;
+      opacity: 1;
+    }
     width: 1240px;
     background-color: #fff;
     position: absolute;
