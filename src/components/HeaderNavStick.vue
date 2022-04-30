@@ -13,15 +13,15 @@
 
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue'
+import { useWindowScroll } from '@vueuse/core'
 import HeaderNav from './HeaderNav.vue'
-
-const pageY = ref(0)
-onMounted(() => {
+const { y: pageY } = useWindowScroll()
+// onMounted(() => {
   // 监听屏幕滚动事件
-  window.onscroll = () => {
-    pageY.value = document.documentElement.scrollTop
-  }
-})
+  // window.onscroll = () => {
+  //   pageY.value = document.documentElement.scrollTop
+  // }
+// })
 </script>
 
 <style scoped lang="less">
