@@ -2,6 +2,7 @@
   import NavBar from '../../components/NavBar.vue'
   import HeaDer from '../../components/Header.vue'
   import Footer from '../../components/Footer.vue'
+  import HeaderNavStick from '../../components/HeaderNavStick.vue'
   import { useStore } from 'vuex'
   const store = useStore();
   store.dispatch('category/getCateGoryList')
@@ -12,6 +13,7 @@
   <NavBar/>
   <!--  头部  -->
   <HeaDer/>
+  <HeaderNavStick/>
   <main class="app-body">
     <!--  二级路由 -->
     <router-view></router-view>
