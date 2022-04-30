@@ -3,8 +3,12 @@
     <ul class="menu">
       <li :class="{active: currentGoryId === item.id}" v-for="item in HomeCategoryList" :key="item.id" @mouseenter="currentGoryId = item.id">
         <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
-        <template v-for="sub in item.children" :key="sub.id">
-          <RouterLink :to="`/category/sub/${sub.id}`">{{sub.name}}</RouterLink>
+        <template v-if="item.children">
+          <RouterLink v-for="sub in item.children" :key="sub.id" :to="`/category/sub/${sub.id}`">{{sub.name}}</RouterLink>
+        </template>
+        <template v-else>
+          <PCSkeleton width="60px" height="18px" style="margin-right:5px" bg="rgba(255,255,255,0.2)" animated/>
+          <PCSkeleton width="60px" height="18px" bg="rgba(255,255,255,0.2)" animated/>
         </template>
       </li>
     </ul>
@@ -187,6 +191,17 @@ brand.brands = result
 &:hover {
   .layer {
     display: block;
+  }
+}
+.skeleton {
+  animation: fade 1s linear infinite alternate;
+}
+@keyframes fade {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
   }
 }
 </style>
