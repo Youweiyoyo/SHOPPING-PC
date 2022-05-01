@@ -1,5 +1,5 @@
 <template>
-  <div class='xtx-carousel'>
+  <div class='xtx-carousel' @mouseenter="stop()" @mouseleave="start()">
     <ul class="carousel-body">
       <li class="carousel-item" v-for="(item,i) in Props.sliders" :key="i" :class="{fade:CurrentIndex === i}">
         <RouterLink to="/">
@@ -7,11 +7,11 @@
         </RouterLink>
       </li>
     </ul>
-    <a href="javascript:;" class="carousel-btn prev"><i class="iconfont icon-angle-left"></i></a>
-    <a href="javascript:;" class="carousel-btn next"><i class="iconfont icon-angle-right"></i></a>
+    <a  @click="toggle(-1)" href="javascript:;" class="carousel-btn prev"><i class="iconfont icon-angle-left"></i></a>
+    <a  @click="toggle(1)" href="javascript:;" class="carousel-btn next"><i class="iconfont icon-angle-right"></i></a>
     <div class="carousel-indicator">
       <!--  激活点 -->
-      <span v-for="(item,i) in Props.sliders" :key="i" :class="{active:CurrentIndex === i}"></span>
+      <span v-for="(item,i) in Props.sliders" :key="i" :class="{active:CurrentIndex === i}" @click="CurrentIndex = i"></span>
     </div>
   </div>
 </template>
@@ -29,9 +29,10 @@ const Props = withDefaults(defineProps<Props>(), {
   duration: 3000
 })
 let CurrentIndex: Ref<number> = ref(0)
-let timer = null
+let timer: any = null
 // 自动播放函数
 const autoPlayFn = () => {
+  clearInterval(timer)
   timer = setInterval(() => {
     CurrentIndex.value++
     if(CurrentIndex.value >= Props.sliders.length){
@@ -44,6 +45,33 @@ watch(() => Props.sliders, (newValue) => {
     autoPlayFn()
   }
 }, {immediate: true})
+
+// 鼠标移入暂停播放
+const stop = () => {
+if(timer) clearInterval(timer)
+}
+// 鼠标移入播放
+const start = () => {
+  if(Props.sliders.length && Props.autoPlay){
+    autoPlayFn()
+  }
+}
+// 上一张下一张
+const toggle = (step: number) => {
+  let newIndex = CurrentIndex.value + step
+  // 边界情况
+  if(newIndex >= (Props.sliders.length - 1)){
+    return CurrentIndex.value = 0
+  }
+  if(newIndex <= 0){
+    return CurrentIndex.value = Props.sliders.length - 1
+  }
+  CurrentIndex.value = newIndex
+}
+
+onUnmounted(() => {
+  clearInterval(timer)
+})
 </script>
 
 <style scoped lang="less">
