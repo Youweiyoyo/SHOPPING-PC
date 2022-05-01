@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import HomeCateGory from './components/HomeCategory.vue'
+import HomeBanner from './components/HomeBanner.vue'
 </script>
 
 <template>
@@ -13,6 +14,10 @@ import HomeCateGory from './components/HomeCategory.vue'
           <template #fallback>
             Loading....
           </template>
+        </Suspense>
+        <!-- 轮播图 -->
+        <Suspense>
+          <HomeBanner />
         </Suspense>
       </div>
     </div>

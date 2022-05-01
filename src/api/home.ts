@@ -10,3 +10,11 @@ import request from "../utils/request";
 export const getBrandInfo = (limit: Number = 6) => {
     return request('/home/brand','get', {limit: limit})
 }
+
+/**
+ * 获取轮播图
+ * @return Promise
+ */
+export const getHomeBanner = () => {
+    return request('/home/banner','get')
+}
