@@ -1,7 +1,7 @@
 <template>
   <div class='xtx-carousel'>
     <ul class="carousel-body">
-      <li class="carousel-item fade" v-for="(item, i) in Props.sliders" :key="index" :class="{fade: index === i }">
+      <li class="carousel-item" v-for="(item,i) in Props.sliders" :key="i" :class="{fade:CurrentIndex === i}">
         <RouterLink to="/">
           <img :src="item.imgUrl" alt="">
         </RouterLink>
@@ -11,20 +11,39 @@
     <a href="javascript:;" class="carousel-btn next"><i class="iconfont icon-angle-right"></i></a>
     <div class="carousel-indicator">
       <!--  激活点 -->
-      <span v-for="(item, i) in Props.sliders" :key="i" :class="{active: index === i}"></span>
+      <span v-for="(item,i) in Props.sliders" :key="i" :class="{active:CurrentIndex === i}"></span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults, ref } from 'vue'
+import {defineProps, withDefaults, ref, Ref, watch} from 'vue'
 interface Props {
-  sliders?: []
+  sliders?: [] // 轮播图数据
+  autoPlay?: boolean // 是否自动轮播
+  duration?: number // 间隔时间
 }
 const Props = withDefaults(defineProps<Props>(), {
-  sliders: () => []
+  sliders: () => [],
+  autoPlay: true,
+  duration: 3000
 })
-const index = ref(1)
+let CurrentIndex: Ref<number> = ref(0)
+let timer = null
+// 自动播放函数
+const autoPlayFn = () => {
+  timer = setInterval(() => {
+    CurrentIndex.value++
+    if(CurrentIndex.value >= Props.sliders.length){
+      CurrentIndex.value = 0
+    }
+  }, Props.duration)
+}
+watch(() => Props.sliders, (newValue) => {
+  if(newValue.length && Props.autoPlay){
+    autoPlayFn()
+  }
+}, {immediate: true})
 </script>
 
 <style scoped lang="less">

@@ -1,15 +1,17 @@
 <template>
   <div class="home-banner">
-    <PCCarousel :sliders="sliders" />
+    <PCCarousel autoPlay :sliders="sliders" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {Ref, ref} from 'vue'
 import { getHomeBanner } from '../../../api/home'
-const sliders = ref([])
-const { result } = await getHomeBanner()
-sliders.value = result
+const sliders: Ref<object> = ref([])
+getHomeBanner().then((res) => {
+  sliders.value = res.result
+})
+
 </script>
 
 <style scoped lang="less">
@@ -20,5 +22,13 @@ sliders.value = result
   left: 0;
   top: 0;
   z-index: 98
+}
+.xtx-carousel {
+  /deep/ .carousel-btn.prev {
+    left: 270px;
+  }
+  /deep/ .carousel-indicator {
+    padding-left: 250px;
+  }
 }
 </style>

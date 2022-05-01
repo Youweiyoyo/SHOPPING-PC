@@ -4,9 +4,8 @@ import HomeBanner from './components/HomeBanner.vue'
 </script>
 
 <template>
-  <div class="home-page">
   <!-- home主页 -->
-    <div class="home-enter">
+    <div class="home-entry">
       <div class="container">
         <!-- 分类页 -->
         <Suspense>
@@ -16,12 +15,9 @@ import HomeBanner from './components/HomeBanner.vue'
           </template>
         </Suspense>
         <!-- 轮播图 -->
-        <Suspense>
-          <HomeBanner />
-        </Suspense>
+        <HomeBanner />
       </div>
     </div>
-  </div>
 </template>
 
 <style lang="less" scoped>
