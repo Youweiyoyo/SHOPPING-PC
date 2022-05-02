@@ -1,19 +1,24 @@
 <template>
 <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
-  <ul ref="panel" class="goods-list">
-    <li v-for="item in goods" :key="item.id">
-      <RouterLink to="/">
-        <img :src="item.picture" alt="">
-        <p class="name">{{item.title}}</p>
-        <p class="desc">{{item.alt}}</p>
-      </RouterLink>
-    </li>
-  </ul>
+  <Transition name="fade">
+    <ul ref="panel" class="goods-list" v-if="goods.length">
+      <li v-for="item in goods" :key="item.id">
+        <RouterLink to="/">
+          <img :src="item.picture" alt="">
+          <p class="name">{{item.title}}</p>
+          <p class="desc">{{item.alt}}</p>
+        </RouterLink>
+      </li>
+    </ul>
+    <HomeSkeleton v-else />
+  </Transition>
+
 </HomePanel>
 </template>
 
 <script lang="ts" setup>
 import HomePanel from './HomePanel.vue'
+import HomeSkeleton from './HomeSkeleton.vue'
 import { ref } from 'vue'
 import { getHot } from '../../../api/home'
 const goods = ref([])
