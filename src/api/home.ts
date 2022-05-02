@@ -20,9 +20,17 @@ export const getHomeBanner = () => {
 }
 
 /**
- *
+ * 获取新鲜好物
  *@return Promise
  */
 export const findNew  = () => {
     return request('home/new', 'get')
+}
+
+/**
+ * 获取人气推荐
+ * @return Promise
+ */
+export const getHot = () => {
+    return request('home/hot', 'get')
 }
