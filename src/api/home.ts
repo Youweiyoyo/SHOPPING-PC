@@ -18,3 +18,11 @@ export const getBrandInfo = (limit: Number = 6) => {
 export const getHomeBanner = () => {
     return request('/home/banner','get')
 }
+
+/**
+ *
+ *@return Promise
+ */
+export const findNew  = () => {
+    return request('home/new', 'get')
+}
