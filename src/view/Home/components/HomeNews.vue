@@ -2,7 +2,7 @@
   <div class="home-new">
     <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
       <template #right><PCMore path="/" /></template>
-      <Transition name="fade">
+      <Transition name="fade" ref="target">
         <!-- 面板内容 -->
         <ul class="goods-list" v-if="goods.length">
           <li v-for="item in goods" :key="item.id">
@@ -24,10 +24,9 @@ import HomePanel from './HomePanel.vue'
 import HomeSkeleton from './HomeSkeleton.vue'
 import { findNew } from '../../../api/home'
 import { ref } from "vue";
-const goods = ref([])
-findNew().then((res) => {
-  goods.value = res.result
-})
+import { useLazyData } from '../../../Hooks'
+const target = ref(null)
+const goods = useLazyData(target, findNew)
 </script>
 
 <style lang="less" scoped>
