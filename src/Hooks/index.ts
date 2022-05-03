@@ -29,6 +29,10 @@ export const useLazyData  = (target: any, fn: Function) => {
                 })
             }
         },
+        // 配置相交的比例大于0
+        {
+            threshold: 0
+        }
     )
     return result
 }

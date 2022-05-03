@@ -42,3 +42,11 @@ export const getHot = () => {
 export const getGoods = () => {
     return request('home/goods', 'get')
 }
+
+/**
+ * 获取专题
+ * @return Promise
+ */
+export const getSpecial = () => {
+    return request('home/special', 'get')
+}

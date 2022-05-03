@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item">
-    <RouterLink to="/" class="image">
+    <RouterLink :to="`/product/${Props.goods.id}`" class="image">
       <img :src="Props.goods.picture" alt=""/>
     </RouterLink>
     <p class="name ellipsis-2">{{Props.goods.name}}</p>
@@ -46,6 +46,7 @@ const Props = withDefaults(defineProps<props>(), {
     img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
