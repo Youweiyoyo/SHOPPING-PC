@@ -11,7 +11,7 @@
         <ul v-if="brand?.length" class="list" :style="{transform: `translateX(${-INDEX * 1240}px)`}">
           <li v-for="item in brand" :key="item.id">
             <RouterLink to="/">
-              <img :src="item.picture" alt="">
+              <img  alt="" v-lazyLoad="item.picture">
             </RouterLink>
           </li>
         </ul>

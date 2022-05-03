@@ -5,11 +5,11 @@
         <div class="sub">
           <RouterLink to="/" v-for="sub in item.children" :key="sub.id">{{sub.name}}</RouterLink>
         </div>
-        <PCMore/>
+        <PCMore :path="`/category/${item.id}`"/>
       </template>
       <div class="box">
         <RouterLink class="cover" to="/">
-          <img :src="item.picture" alt="">
+          <img  alt="" v-lazyLoad="item.picture">
           <strong class="label">
             <span>{{item.name}}</span>
             <span>{{item.saleInfo}}</span>
