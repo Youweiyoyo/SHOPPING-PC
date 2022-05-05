@@ -5,7 +5,7 @@
         <!-- 面包屑 -->
         <PCBread>
           <PCBreadItem to="/">首页</PCBreadItem>
-          <PCBreadItem v-if="topCatGory">{{topCatGory.name}}</PCBreadItem>
+          <PCBreadItem>{{topCatGory.name}}</PCBreadItem>
         </PCBread>
         <!-- 轮播图 -->
         <PCCarousel :sliders="sliders" style="height:500px"/>
@@ -38,9 +38,12 @@ getHomeBanner().then((res) => sliders.value = res.result)
 const topCatGory = computed(() => {
   const store = useStore()
   const route = useRoute()
-  return store.state.category.list.find((item: object) => {
+  let cate = {}
+  let item = store.state.category.list.find((item: object) => {
     return item.id === route.params.id
   })
+  if (item) cate = item
+  return cate
 })
 </script>
 
