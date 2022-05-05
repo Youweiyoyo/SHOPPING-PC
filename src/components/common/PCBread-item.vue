@@ -3,7 +3,7 @@
     <RouterLink  v-if="Props.to" :to="Props.to"><slot/></RouterLink>
     <span v-else><slot/></span>
   </div>
-  <i class="iconfont icon-angle-right"></i>
+<!--  <i class="iconfont icon-angle-right"></i>-->
 </template>
 
 <script lang="ts" setup>
