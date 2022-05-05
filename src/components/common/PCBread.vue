@@ -15,8 +15,6 @@ export default {
     items.forEach((item: object,index: number) => {
       newItems.push(item)
       if(index < (items.length - 1)){
-        console.log(index)
-        console.log(items.length - 1)
         newItems.push(h('i', {className: 'iconfont icon-angle-right'}))
       }
     })
