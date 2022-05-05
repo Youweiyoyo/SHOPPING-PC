@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { withDefaults, defineProps } from 'vue';
 interface props {
-  to: string | object
+  to?: string | object
 }
 const Props = withDefaults(defineProps<props>(), {
   to: ''

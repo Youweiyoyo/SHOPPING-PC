@@ -10,15 +10,17 @@ import {h} from 'vue'
 export default {
   name: "PCBread",
   setup(props: object, {slots}) {
+    // 获取所有默认插槽
     const items = slots.default()
     const newItems: Array<object> = []
-    items.forEach((item: object,index: number) => {
+    // 动态渲染逻辑
+    items.forEach((item: object, index: number) => {
       newItems.push(item)
-      if(index < (items.length - 1)){
+      if (index < (items.length - 1)) {
         newItems.push(h('i', {className: 'iconfont icon-angle-right'}))
       }
     })
-    return () => h('div', {className: 'xtx-bread'},newItems)
+    return () => h('div', {className: 'xtx-bread'}, newItems)
   }
 }
 </script>
