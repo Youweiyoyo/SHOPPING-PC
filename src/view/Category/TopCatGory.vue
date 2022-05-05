@@ -4,7 +4,9 @@
       <!-- 面包屑 -->
       <PCBread>
         <PCBreadItem to="/">首页</PCBreadItem>
-        <PCBreadItem>{{ topCatGory.name }}</PCBreadItem>
+        <Transition name="fade-right" mode="out-in">
+          <PCBreadItem :key="topCatGory.id">{{ topCatGory.name }}</PCBreadItem>
+        </Transition>
       </PCBread>
       <!-- 轮播图 -->
       <PCCarousel :sliders="sliders" style="height:500px"/>
@@ -68,7 +70,7 @@ watch(() => route.params.id, (newValue) => {
 
 <style scoped lang="less">
 @import "../src/assets/styles/variables";
-
+@import "../src/assets/styles/mixins";
 .top-category {
   h3 {
     font-size: 28px;

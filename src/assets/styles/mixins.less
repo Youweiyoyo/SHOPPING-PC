@@ -21,3 +21,20 @@
     }
   }
 }
+
+//组件动画
+.fade-right-enter-to,
+.fade-right-leave-from{
+  opacity: 1;
+  transform: none;
+}
+.fade-right-enter-active,
+.fade-right-leave-active{
+  transition: all .5s;
+}
+
+.fade-right-leave-to,
+.fade-right-enter-from {
+  transform: translateX(20px);
+  opacity: 0;
+}
