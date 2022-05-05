@@ -8,3 +8,12 @@ import request from "../utils/request";
 export const findAllCategory = () => {
     return request('/home/category/head', 'get')
 }
+
+/**
+ * 获取二级分类
+ * @param id - 商品id
+ * @return Promise
+ */
+export const findTopCategory = (id: string| string[]) => {
+    return request('/category', 'get', {id})
+}
