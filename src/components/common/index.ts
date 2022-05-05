@@ -1,13 +1,16 @@
 // 全局组件入口文件
+import defaultImage from '../../assets/images/200.png'
+
 import PCSkeleton from './PCSkeleton.vue'
 import PCCarousel from './PCCarousel.vue'
 import PCMore from './PCMore.vue'
-import defaultImage from '../../assets/images/200.png'
+import PCBread from './PCBread.vue'
 export default {
     install(app: any) {
         app.component('PCSkeleton', PCSkeleton)
         app.component('PCCarousel', PCCarousel)
         app.component('PCMore', PCMore)
+        app.component('PCBread', PCBread)
         // 定义自定义指令
         defineDirective(app)
     }

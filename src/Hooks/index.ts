@@ -20,7 +20,6 @@ export const useLazyData  = (target: any, fn: Function) => {
         ([{ isIntersecting }], observerElement) => {
             // 是否进入可视区域
             if(isIntersecting){
-                console.log('进入可视区')
                 // 停止监听
                 stop()
                 // 调用接口返回数据
