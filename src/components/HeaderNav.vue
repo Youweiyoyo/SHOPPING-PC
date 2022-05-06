@@ -16,7 +16,7 @@
 <template>
   <ul class="navs">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in cateGoryList" :key="item.id" @mouseenter="GoryShow(item.id)" @mouseleave="GoryHide(item.id)">
+    <li v-for="item in cateGoryList" :key="item.id" @mousemove="GoryShow(item.id)" @mouseleave="GoryHide(item.id)">
       <RouterLink :to='`/category/${item.id}`' @click="GoryHide(item.id)">{{item.name}}</RouterLink>
       <div class="layer" :class="{open: item.open}">
         <ul>

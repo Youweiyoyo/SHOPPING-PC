@@ -64,7 +64,8 @@ const getSubList = () => {
   findTopCategory(route.params.id).then((res) => subList.value = res.result.children)
 }
 watch(() => route.params.id, (newValue) => {
-  newValue && getSubList()
+  // 顶级类目才发请求
+  if(newValue && `/category/${newValue}` === route.path) getSubList()
 }, {immediate: true})
 </script>
 

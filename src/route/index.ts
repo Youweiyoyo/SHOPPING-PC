@@ -1,5 +1,6 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-const Layout  = () => import('../view/Layout/layout.vue');
+import {createRouter, createWebHashHistory} from "vue-router";
+
+const Layout = () => import('../view/Layout/layout.vue');
 const Home = () => import('../view/Home/home.vue')
 const TopCatGory = () => import('../view/Category/TopCatGory.vue')
 const CareGory = () => import('../view/Category/category.vue')
@@ -23,10 +24,13 @@ const routes = [
                 component: CareGory
             },
         ]
-  }
+    }
 ]
 
-export default  createRouter({
+export default createRouter({
     history: createWebHashHistory(),
     routes,
+    scrollBehavior() {
+        return {left: 0, top: 0}
+    }
 })
