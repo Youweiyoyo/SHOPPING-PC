@@ -4,22 +4,24 @@
     <div class="item">
       <div class="head">品牌：</div>
       <div class="body">
-        <a href="javascript:;" v-for="item in filterData?.brands" :key="item?.id">{{item?.name}}</a>
+        <a @click="filterData.brands.selectedBrands = item.id" :class="{active:filterData?.brands.selectedBrands === item.id}" href="javascript:;"
+           v-for="item in filterData?.brands" :key="item?.id">{{ item?.name }}</a>
       </div>
     </div>
     <div class="item" v-for="item in filterData?.saleProperties" :key="item.id">
-      <div class="head">{{item.name}}</div>
+      <div class="head">{{ item.name }}</div>
       <div class="body">
-        <a href="javascript:;" v-for="pro in item.properties" :key="pro?.id">{{pro?.name}}</a>
+        <a @click="item.properties.selectedAttr = pro.id"  :class="{active:item.properties.selectedAttr === pro.id}" href="javascript:;" v-for="pro in item.properties"
+           :key="pro?.id">{{ pro?.name }}</a>
       </div>
     </div>
   </div>
   <div v-else class="sub-filter">
-    <PCSkeleton class="item" width="800px" height="40px"  />
-    <PCSkeleton class="item" width="800px" height="40px"  />
-    <PCSkeleton class="item" width="600px" height="40px"  />
-    <PCSkeleton class="item" width="600px" height="40px"  />
-    <PCSkeleton class="item" width="600px" height="40px"  />
+    <PCSkeleton class="item" width="800px" height="40px"/>
+    <PCSkeleton class="item" width="800px" height="40px"/>
+    <PCSkeleton class="item" width="600px" height="40px"/>
+    <PCSkeleton class="item" width="600px" height="40px"/>
+    <PCSkeleton class="item" width="600px" height="40px"/>
   </div>
 </template>
 
@@ -37,9 +39,11 @@ watch(() => route.params.id, (newValue, oldValue) => {
   if (newValue && route.path === `/category/sub/${newValue}`) {
     filterLoading.value = true
     fundSubCategory(route.params.id).then((res) => {
+      res.result.brands.selectedBrands = null
       res.result.brands.unshift({id: null, name: '全部'})
       res.result.saleProperties.forEach((item: object) => {
-        item.properties.unshift({id: null ,name: '全部'})
+        item.properties.selectedAttr = null
+        item.properties.unshift({id: null, name: '全部'})
       })
       filterData.value = res.result
       filterLoading.value = false
@@ -82,6 +86,7 @@ watch(() => route.params.id, (newValue, oldValue) => {
     }
   }
 }
+
 .skeleton {
   padding: 10px 0;
 }
