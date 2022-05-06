@@ -17,3 +17,11 @@ export const findAllCategory = () => {
 export const findTopCategory = (id: string| string[]) => {
     return request('/category', 'get', {id})
 }
+
+/**
+ * 二级分类商品
+ * @param id
+ */
+export const fundSubCategory = (id: string | string[]) => {
+    return request('/category/sub/filter', 'get', {id})
+}
