@@ -23,8 +23,13 @@
 
 <script lang="ts" setup>
 import {reactive} from 'vue'
-
-const sortParams = reactive({
+interface ISortData {
+  inventory: boolean,
+  onlyDiscount: boolean,
+  sortField: null | string,
+  sortMethod: null | string,
+}
+const sortParams = reactive<ISortData>({
   inventory: false,
   onlyDiscount: false,
   sortField: null,
