@@ -20,13 +20,16 @@ const Props = withDefaults(defineProps<props>(), {
 
 // emit 类型约束 组件的 v-model  :modelValue  @update:modelValue 事件
 const emits = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
+  (e: 'update:modelValue', value: boolean): void,
+  (e: 'change', value: boolean): void
 }>()
 
 // 1.使用 vueUse 实现 双向绑定
 const isChecked = useVModel(Props,'modelValue', emits)
 const checkBoxChange = () => {
   isChecked.value = !isChecked.value
+  // 给组件增加 change 事件
+  emits('change', isChecked.value)
 }
 // 2.传统方式实现 双向绑定
 // const isChecked = ref(false)
