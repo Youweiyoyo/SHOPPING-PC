@@ -6,6 +6,7 @@ import PCCarousel from './PCCarousel.vue'
 import PCMore from './PCMore.vue'
 import PCBread from './PCBread.vue'
 import PCBreadItem from './PCBread-item.vue'
+import PCCheckBox from './PCCheckBox.vue'
 export default {
     install(app: any) {
         app.component('PCSkeleton', PCSkeleton)
@@ -13,6 +14,7 @@ export default {
         app.component('PCMore', PCMore)
         app.component('PCBread', PCBread)
         app.component('PCBreadItem', PCBreadItem)
+        app.component('PCCheckBox', PCCheckBox)
         // 定义自定义指令
         defineDirective(app)
     }

@@ -5,13 +5,14 @@
       <SubBread />
       <!-- 二级分类展示区 -->
       <SubFilter />
+      <PCCheckBox v-model="isCheckBoxAll">全选</PCCheckBox>{{isCheckBoxAll}}
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import SubBread from './components/sub-bread.vue'
-import SubFilter from './components/sub-filter.vue'
+import {ref} from 'vue'
+const isCheckBoxAll = ref(false)
 </script>
 
 <style scoped lang="less">
