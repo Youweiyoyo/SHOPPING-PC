@@ -7,6 +7,7 @@ import PCMore from './PCMore.vue'
 import PCBread from './PCBread.vue'
 import PCBreadItem from './PCBread-item.vue'
 import PCCheckBox from './PCCheckBox.vue'
+import PCInfiniteLoading from './PCInfinite-loading.vue'
 export default {
     install(app: any) {
         app.component('PCSkeleton', PCSkeleton)
@@ -15,6 +16,7 @@ export default {
         app.component('PCBread', PCBread)
         app.component('PCBreadItem', PCBreadItem)
         app.component('PCCheckBox', PCCheckBox)
+        app.component('PCInfiniteLoading', PCInfiniteLoading)
         // 定义自定义指令
         defineDirective(app)
     }
