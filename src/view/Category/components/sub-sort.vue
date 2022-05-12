@@ -15,20 +15,24 @@
       </a>
     </div>
     <div class="check">
-      <PCCheckBox v-model="sortParams.inventory">仅显示有货商品</PCCheckBox>
-      <PCCheckBox v-model="sortParams.onlyDiscount">仅显示特惠商品</PCCheckBox>
+      <PCCheckBox @change="checkBoxChange" v-model="sortParams.inventory">仅显示有货商品</PCCheckBox>
+      <PCCheckBox @change="checkBoxChange" v-model="sortParams.onlyDiscount">仅显示特惠商品</PCCheckBox>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {reactive} from 'vue'
+import {reactive, defineEmits} from 'vue'
+
 interface ISortData {
   inventory: boolean,
   onlyDiscount: boolean,
   sortField: null | string,
   sortMethod: null | string,
 }
+const emits = defineEmits<{
+  (e: 'sort-change', data: object):void
+}>()
 const sortParams = reactive<ISortData>({
   inventory: false,
   onlyDiscount: false,
@@ -51,6 +55,11 @@ const sortChange = (sortField: string | null) => {
     sortParams.sortField = sortField
     sortParams.sortMethod = null
   }
+  // 触发排序数据
+  emits('sort-change', sortParams)
+}
+const checkBoxChange = () => {
+  emits('sort-change', sortParams)
 }
 </script>
 
