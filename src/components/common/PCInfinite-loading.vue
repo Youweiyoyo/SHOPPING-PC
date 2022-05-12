@@ -29,7 +29,6 @@ const Props = withDefaults(defineProps<props>(), {
 const container = ref(null)
 const {stop} = useIntersectionObserver(container, ([{isIntersecting}]) => {
   if (isIntersecting) {
-    console.log('进入可视区');
     if(!Props.loading && !Props.finished){
       emits('infinite')
     }

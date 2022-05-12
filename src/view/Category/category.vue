@@ -10,11 +10,11 @@
         <SubSort/>
         <!--  列表  -->
         <ul>
-          <li v-for="i in 20" :key="i">
-            <GoodsItem :goods="{}"/>
+          <li v-for="good in goodsList" :key="good.id" >
+            <GoodsItem :goods="good"/>
           </li>
         </ul>
-        <PCInfiniteLoading  :finished="finished" :loading="loading" @infinite="getData"/>
+        <PCInfiniteLoading :finished="finished" :loading="loading" @infinite="getData"/>
       </div>
 
     </div>
@@ -22,17 +22,47 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {ref,watch} from 'vue'
+import {useRoute} from 'vue-router'
+import {findSubCategoryGoods} from '../../api/category'
 import SubSort from './components/sub-sort.vue'
 import SubFilter from './components/sub-filter.vue'
 import SubBread from './components/sub-bread.vue'
 import GoodsItem from './components/goods-item.vue'
 
+const route = useRoute()
+
+// 是否加载中
 const loading = ref(false)
+// 是否加载完毕
 const finished = ref(false)
-const getData = () => {
-  console.log('加载数据~')
+const goodsList = ref([])
+// 请求参数
+const params = {
+  page: 1,
+  pageSize: 20
 }
+const getData = () => {
+  loading.value = true
+  params.categoryId = route.params.id
+  findSubCategoryGoods(params).then(({result}) => {
+    if(result.items.length){
+      goodsList.value.push(...result.items)
+      params.page ++
+    }else {
+      finished.value = true
+    }
+    loading.value = false
+  })
+}
+watch(() => route.params.id, (newValue) => {
+  if(newValue && `/category/sub/${newValue}` === route.path){
+    finished.value = false
+    goodsList.value = []
+    params.page = 1
+    params.pageSize = 20
+  }
+})
 </script>
 
 <style scoped lang="less">

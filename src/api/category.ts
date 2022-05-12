@@ -25,3 +25,10 @@ export const findTopCategory = (id: string| string[]) => {
 export const fundSubCategory = (id: string | string[]) => {
     return request('/category/sub/filter', 'get', {id})
 }
+
+/**
+ * 获取二级分类下的商品
+ */
+export const findSubCategoryGoods = (params: object) => {
+    return request('/category/goods/temporary', 'post', params)
+}
