@@ -9,7 +9,12 @@
         <PCBreadItem to="/">{{goodRes?.name}}</PCBreadItem>
       </PCBread>
       <!-- 商品信息 -->
-      <div class="goods-info"></div>
+      <div class="goods-info">
+        <div class="media">
+          <GoodsImage :images="goodRes?.mainPictures"/>
+        </div>
+        <div class="spec"></div>
+      </div>
       <!-- 商品推荐 -->
       <GoodsRelevant v-if="goodRes"/>
       <!-- 商品详情 -->
@@ -29,6 +34,7 @@
 
 <script lang="ts" setup>
 import GoodsRelevant from './Components/goods-relevant.vue';
+import GoodsImage from './Components/goods-image.vue'
 import {useGoods} from './ApiHooks'
 import {useRoute} from 'vue-router'
 
@@ -40,6 +46,16 @@ const goodRes = useGoods(route.params.id as string)
 .goods-info {
   min-height: 600px;
   background: #fff;
+  display: flex;
+  .media {
+    width: 580px;
+    height: 600px;
+    padding: 30px 50px;
+  }
+  .spec {
+    flex: 1;
+    padding: 30px 30px 30px 0;
+  }
 }
 
 .goods-footer {
