@@ -4,6 +4,7 @@ const Layout = () => import('../view/Layout/layout.vue');
 const Home = () => import('../view/Home/home.vue')
 const TopCatGory = () => import('../view/Category/TopCatGory.vue')
 const CareGory = () => import('../view/Category/category.vue')
+const Goods = () => import('../view/goods/Goods.vue')
 const routes = [
     {
         path: '/',
@@ -23,6 +24,11 @@ const routes = [
                 path: '/category/sub/:id',
                 component: CareGory
             },
+            // 商品详情
+            {
+                path: '/product/:id',
+                component: Goods
+            }
         ]
     }
 ]
