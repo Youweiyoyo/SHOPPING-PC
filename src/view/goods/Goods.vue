@@ -4,14 +4,14 @@
       <!-- 面包屑 -->
       <PCBread>
         <PCBreadItem to="/">首页</PCBreadItem>
-        <PCBreadItem to="/">手机</PCBreadItem>
-        <PCBreadItem to="/">华为</PCBreadItem>
-        <PCBreadItem to="/">p30</PCBreadItem>
+        <PCBreadItem :to="`/category/${goodRes?.categories[1].id}`">{{goodRes?.categories[1].name}}</PCBreadItem>
+        <PCBreadItem :to="`/category/sub/${goodRes?.categories[0].id}`">{{goodRes?.categories[0].name}}</PCBreadItem>
+        <PCBreadItem to="/">{{goodRes?.name}}</PCBreadItem>
       </PCBread>
       <!-- 商品信息 -->
       <div class="goods-info"></div>
       <!-- 商品推荐 -->
-      <GoodsRelevant />
+      <GoodsRelevant v-if="goodRes"/>
       <!-- 商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
@@ -29,6 +29,11 @@
 
 <script lang="ts" setup>
 import GoodsRelevant from './Components/goods-relevant.vue';
+import {useGoods} from './ApiHooks'
+import {useRoute} from 'vue-router'
+
+const route = useRoute()
+const goodRes = useGoods(route.params.id as string)
 </script>
 
 <style lang="less" scoped>
@@ -36,22 +41,27 @@ import GoodsRelevant from './Components/goods-relevant.vue';
   min-height: 600px;
   background: #fff;
 }
+
 .goods-footer {
   display: flex;
   margin-top: 20px;
+
   .goods-article {
     width: 940px;
     margin-right: 20px;
   }
+
   .goods-aside {
     width: 280px;
     min-height: 1000px;
   }
 }
+
 .goods-tabs {
   min-height: 600px;
   background: #fff;
 }
+
 .goods-warn {
   min-height: 600px;
   background: #fff;
