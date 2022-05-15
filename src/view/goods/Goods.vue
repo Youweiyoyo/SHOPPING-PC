@@ -12,7 +12,7 @@
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images="goodRes?.mainPictures"/>
-          <GoodsSales/>
+          <GoodsSales />
         </div>
         <div class="spec">
           <GoodsName :goods="goodRes"/>
