@@ -12,8 +12,11 @@
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images="goodRes?.mainPictures"/>
+          <GoodsSales/>
         </div>
-        <div class="spec"></div>
+        <div class="spec">
+          <GoodsName :goods="goodRes"/>
+        </div>
       </div>
       <!-- 商品推荐 -->
       <GoodsRelevant v-if="goodRes"/>
@@ -35,6 +38,8 @@
 <script lang="ts" setup>
 import GoodsRelevant from './Components/goods-relevant.vue';
 import GoodsImage from './Components/goods-image.vue'
+import GoodsName from './Components/goods-name.vue'
+import GoodsSales from './Components/goods-sales.vue'
 import {useGoods} from './ApiHooks'
 import {useRoute} from 'vue-router'
 
