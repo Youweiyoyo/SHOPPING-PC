@@ -2,7 +2,8 @@
 
 
 import { useIntersectionObserver  } from "@vueuse/core"
-import {Ref, ref} from 'vue'
+import {ref} from 'vue'
+import axios from "axios";
 
 
 /**
@@ -34,4 +35,21 @@ export const useLazyData  = (target: any, fn: Function) => {
         }
     )
     return result
+}
+
+/**
+ * 获取城市信息
+ */
+export const useGetCityData = () => {
+    return new Promise((resolve,reject) => {
+        if(window.cityData){
+            resolve(window.cityData)
+        }else {
+            const URL = 'https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json'
+            axios.get(URL).then((res) => {
+                window.cityData = res.data
+                resolve(res.data)
+            })
+        }
+    })
 }

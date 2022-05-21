@@ -20,5 +20,8 @@ export default defineConfig({
         additionalData: '@import "./src/assets/styles/variables.less";',
       },
     },
+  },
+  build: {
+    assetsInlineLimit: 4096
   }
 })

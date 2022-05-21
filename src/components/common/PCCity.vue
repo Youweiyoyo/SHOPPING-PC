@@ -6,18 +6,31 @@
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-show="visible">
-      <span class="ellipsis" v-for="i in 24" :key="i">北京市</span>
+      <div v-if="loading" class="loading"></div>
+      <template v-else>
+        <span class="ellipsis" v-for="city in currList" :key="city.code">{{city.name}}</span>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {ref} from 'vue'
-import { onClickOutside } from '@vueuse/core'
+import {computed, ref} from 'vue'
+import {onClickOutside} from '@vueuse/core'
+import {useGetCityData} from '../../Hooks'
+
 let visible = ref(false)
 const target = ref(null)
+const allCityData:any = ref([])
+const Loading = ref(false)
 const open = () => {
   visible.value = true
+  Loading.value = true
+  useGetCityData().then(res => {
+    allCityData.value = res
+    console.log(allCityData.value);
+    Loading.value = false
+  })
 }
 const close = () => {
   visible.value = false
@@ -27,6 +40,9 @@ const toggle = () => {
 }
 onClickOutside(target, () => {
   close()
+})
+const currList = computed(() => {
+  return allCityData.value
 })
 </script>
 
@@ -77,6 +93,11 @@ onClickOutside(target, () => {
       &:hover {
         background: #f5f5f5;
       }
+    }
+    .loading {
+      height: 290px;
+      width: 100%;
+      background: url(../../assets/images/loading.gif) no-repeat center;
     }
   }
 }
