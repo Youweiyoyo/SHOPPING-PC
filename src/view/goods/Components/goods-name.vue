@@ -1,9 +1,9 @@
 <template>
-  <p class="g-name">{{Props.goods.name}}</p>
-  <p class="g-desc">{{Props.goods.desc}}</p>
+  <p class="g-name">{{Props.goods?.name}}</p>
+  <p class="g-desc">{{Props.goods?.desc}}</p>
   <p class="g-price">
-    <span>{{Props.goods.price}}</span>
-    <span>{{Props.goods.oldPrice}}</span>
+    <span>{{Props.goods?.price}}</span>
+    <span>{{Props.goods?.oldPrice}}</span>
   </p>
   <div class="g-service">
     <dl>
@@ -12,7 +12,7 @@
     </dl>
     <dl>
       <dt>配送</dt>
-      <dd>至</dd>
+      <dd>至 <PCCity/></dd>
     </dl>
     <dl>
       <dt>服务</dt>

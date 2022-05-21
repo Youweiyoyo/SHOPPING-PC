@@ -6,6 +6,7 @@ import PCMore from './PCMore.vue'
 import PCBread from './PCBread.vue'
 import PCBreadItem from './PCBread-item.vue'
 import PCCheckBox from './PCCheckBox.vue'
+import PCCity from './PCCity.vue'
 import PCInfiniteLoading from './PCInfinite-loading.vue'
 export default {
     install(app: any) {
@@ -16,5 +17,6 @@ export default {
         app.component('PCBreadItem', PCBreadItem)
         app.component('PCCheckBox', PCCheckBox)
         app.component('PCInfiniteLoading', PCInfiniteLoading)
+        app.component('PCCity', PCCity)
     }
 }
