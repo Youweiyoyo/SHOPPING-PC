@@ -1,9 +1,9 @@
 <template>
-  <p class="g-name">{{Props.goods?.name}}</p>
-  <p class="g-desc">{{Props.goods?.desc}}</p>
+  <p class="g-name">{{ Props.goods?.name }}</p>
+  <p class="g-desc">{{ Props.goods?.desc }}</p>
   <p class="g-price">
-    <span>{{Props.goods?.price}}</span>
-    <span>{{Props.goods?.oldPrice}}</span>
+    <span>{{ Props.goods?.price }}</span>
+    <span>{{ Props.goods?.oldPrice }}</span>
   </p>
   <div class="g-service">
     <dl>
@@ -12,7 +12,9 @@
     </dl>
     <dl>
       <dt>配送</dt>
-      <dd>至 <PCCity/></dd>
+      <dd>至
+        <PCCity :fullLocation="fullLocation" @change="cityChange"/>
+      </dd>
     </dl>
     <dl>
       <dt>服务</dt>
@@ -28,12 +30,33 @@
 
 <script lang="ts" setup>
 import {defineProps, withDefaults} from 'vue'
+
 interface props {
   goods: object
 }
+
 const Props = withDefaults(defineProps<props>(), {
   goods: () => ({})
 })
+const provinceCode = ref('110000')
+const cityCode = ref('119900')
+const countyCode = ref('110101')
+const fullLocation = ref('北京市 市辖区 东城区')
+if (Props.goods?.userAddresses) {
+  const defaultAddress = Props.goods?.userAddresses.find(item => item.isDefault === 1)
+  if (defaultAddress) {
+    provinceCode.value = defaultAddress.provinceCode
+    cityCode.value = defaultAddress.cityCode
+    countyCode.value = defaultAddress.countyCode
+    fullLocation.value = defaultAddress.fullLocation
+  }
+}
+const cityChange = (result: object) => {
+  provinceCode.value = result.provinceCode
+  cityCode.value = result.cityCode
+  countyCode.value = result.countyCode
+  fullLocation.value = result.fullLocation
+}
 </script>
 
 <style scoped lang="less">
