@@ -43,7 +43,7 @@ const open = () => {
     console.log(allCityData.value);
     Loading.value = false
   })
-  for(const key in changeResult){
+  for (const key in changeResult) {
     changeResult[key] = ''
   }
 }

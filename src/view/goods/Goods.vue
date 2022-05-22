@@ -4,18 +4,19 @@
       <!-- 面包屑 -->
       <PCBread>
         <PCBreadItem to="/">首页</PCBreadItem>
-        <PCBreadItem :to="`/category/${goodRes?.categories[1].id}`">{{goodRes?.categories[1].name}}</PCBreadItem>
-        <PCBreadItem :to="`/category/sub/${goodRes?.categories[0].id}`">{{goodRes?.categories[0].name}}</PCBreadItem>
-        <PCBreadItem to="/">{{goodRes?.name}}</PCBreadItem>
+        <PCBreadItem :to="`/category/${goodRes?.categories[1].id}`">{{ goodRes?.categories[1].name }}</PCBreadItem>
+        <PCBreadItem :to="`/category/sub/${goodRes?.categories[0].id}`">{{ goodRes?.categories[0].name }}</PCBreadItem>
+        <PCBreadItem to="/">{{ goodRes?.name }}</PCBreadItem>
       </PCBread>
       <!-- 商品信息 -->
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images="goodRes?.mainPictures"/>
-          <GoodsSales />
+          <GoodsSales/>
         </div>
         <div class="spec">
           <GoodsName :goods="goodRes"/>
+          <GoodsSku :goods="goodRes" />
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -40,6 +41,7 @@ import GoodsRelevant from './Components/goods-relevant.vue';
 import GoodsImage from './Components/goods-image.vue'
 import GoodsName from './Components/goods-name.vue'
 import GoodsSales from './Components/goods-sales.vue'
+import GoodsSku from './Components/goods-sku.vue'
 import {useGoods} from './ApiHooks'
 import {useRoute} from 'vue-router'
 
@@ -52,11 +54,13 @@ const goodRes = useGoods(route.params.id as string)
   min-height: 600px;
   background: #fff;
   display: flex;
+
   .media {
     width: 580px;
     height: 600px;
     padding: 30px 50px;
   }
+
   .spec {
     flex: 1;
     padding: 30px 30px 30px 0;
