@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts" setup>
+import {useGetPathMap} from '../ApiHooks'
 import {defineProps, withDefaults} from 'vue'
 
 interface props {
@@ -30,13 +31,15 @@ const changeSku = (item: any, val: any) => {
   // 将其他统一规格的状态全部置为 false, 将当前状态改为 true
   if (val.selected) {
     val.selected = false
-  }else {
+  } else {
     item.values.forEach((valItem: any) => {
       valItem.selected = false
     })
     val.selected = true
   }
 }
+const pathMap = useGetPathMap(Props.goods.skus)
+console.log(pathMap, "111")
 </script>
 
 <style scoped lang="less">
