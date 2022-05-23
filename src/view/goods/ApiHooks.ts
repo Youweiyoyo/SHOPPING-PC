@@ -45,3 +45,30 @@ export const useGetPathMap = (sku: []) => {
     })
     return pathMap
 }
+
+export const getSelectedArr = (specs: any) => {
+    const selectedArr = []
+    specs.forEach(spec => {
+        const selectedVal = spec.values.find(val => val.selected)
+        selectedArr.push(selectedVal ? selectedVal.name : undefined)
+    })
+    return selectedArr
+}
+/**
+ * 控制选中状态
+ */
+export const updateDisabledStatus = (specs: any, pathMap: any) => {
+    specs.forEach((spec, i) => {
+        const selectedArr = getSelectedArr(specs)
+        spec.values.forEach(val => {
+            // 已经选中的按钮不用判断
+            if (val.name === selectedArr[i]) return false
+            // 未选中的替换对应的值
+            selectedArr[i] = val.name
+            // 过滤无效值得到key
+            const key = selectedArr.filter(v => v).join(SPLITER)
+            // 设置禁用状态
+            val.disabled = !pathMap[key]
+        })
+    })
+}

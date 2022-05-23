@@ -4,9 +4,12 @@
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">
-          <img :class="{selected: val.selected}" v-if="val.picture" :src="val.picture" :title="val.name" alt=""
+          <img :class="{selected: val.selected, disabled: val.disabled}" v-if="val.picture" :src="val.picture"
+               :title="val.name" alt=""
                @click="changeSku(item,val)">
-          <span :class="{selected: val.selected}" v-else @click="changeSku(item,val)">{{ val.name }}</span>
+          <span :class="{selected: val.selected, disabled: val.disabled}" v-else @click="changeSku(item,val)">{{
+              val.name
+            }}</span>
         </template>
       </dd>
     </dl>
@@ -14,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import {useGetPathMap} from '../ApiHooks'
+import {useGetPathMap, updateDisabledStatus, getSelectedArr} from '../ApiHooks'
 import {defineProps, withDefaults} from 'vue'
 
 interface props {
@@ -29,6 +32,7 @@ const changeSku = (item: any, val: any) => {
   // 将状态置为 false
   // 2. 点击未选中
   // 将其他统一规格的状态全部置为 false, 将当前状态改为 true
+  if (val.disabled) return
   if (val.selected) {
     val.selected = false
   } else {
@@ -37,9 +41,12 @@ const changeSku = (item: any, val: any) => {
     })
     val.selected = true
   }
+  updateDisabledStatus(Props.goods.specs, pathMap)
+  getSelectedArr(Props.goods.specs,)
 }
+// 获取到的子集分类
 const pathMap = useGetPathMap(Props.goods.skus)
-console.log(pathMap, "111")
+updateDisabledStatus(Props.goods.specs, pathMap)
 </script>
 
 <style scoped lang="less">
