@@ -16,7 +16,7 @@
         </div>
         <div class="spec">
           <GoodsName :goods="goodRes"/>
-          <GoodsSku :goods="goodRes" :skuId=""/>
+          <GoodsSku :goods="goodRes" :skuId="300289497" @change="changeSku"/>
         </div>
       </div>
       <!-- 商品推荐 -->
@@ -47,6 +47,13 @@ import {useRoute} from 'vue-router'
 
 const route = useRoute()
 const goodRes = useGoods(route.params.id as string)
+const changeSku = (sku) => {
+  if (sku.skuId) {
+    goodRes?.value?.price = sku.price
+    goodRes?.value?.oldPrice = sku.oldPrice
+    goodRes?.value?.inventory = sku.inventory
+  }
+}
 </script>
 
 <style lang="less" scoped>

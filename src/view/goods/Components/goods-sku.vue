@@ -18,17 +18,31 @@
 
 <script lang="ts" setup>
 import {useGetPathMap, updateDisabledStatus, getSelectedArr} from '../ApiHooks'
-import {defineProps, withDefaults} from 'vue'
+import {defineProps, withDefaults, defineEmits} from 'vue'
 
 interface IProps {
   goods: object
-  skuId: string
+  skuId?: string
 }
 
+const Emist = defineEmits<{
+  (e: 'change', value: object): void
+}>()
 const Props = withDefaults(defineProps<IProps>(), {
   goods: () => ({}),
   skuId: ''
 })
+//默认选中的方法
+const initDefaultSelect = (goods: object, skuId: string) => {
+  const sku = goods?.skus.find(sku => sku.id === skuId)
+  goods?.specs.forEach((item, i) => {
+    const val = item.values.find(val => val.name === sku?.specs[i].valueName)
+    val.selected = true
+  })
+}
+if (Props.skuId) {
+  initDefaultSelect(Props.goods, Props.skuId)
+}
 const changeSku = (item: any, val: any) => {
   // 1. 点击已选中
   // 将状态置为 false
@@ -44,11 +58,24 @@ const changeSku = (item: any, val: any) => {
     val.selected = true
   }
   updateDisabledStatus(Props.goods.specs, pathMap)
-  getSelectedArr(Props.goods.specs,)
+  const validSelectedValue = getSelectedArr(Props.goods.specs,).filter(v => v)
+  if (validSelectedValue.length === Props.goods?.specs.length) {
+    const skuIds = pathMap[validSelectedValue.join('-')]
+    const sku = Props.goods?.skus.find(sku => sku.id === skuIds[0])
+    Emist('change', {
+      skuId: sku.id,
+      price: sku.price,
+      oldPrice: sku.oldPrice,
+      inventory: sku.inventory,
+      specsText: sku.specs.reduce((p, n) => `${p} ${n.name}：${n.valueName}`, '').replace(' ', '')
+    })
+  } else {
+    Emist('change', {})
+  }
 }
 // 获取到的子集分类
-const pathMap = useGetPathMap(Props.goods.skus)
-updateDisabledStatus(Props.goods.specs, pathMap)
+const pathMap = useGetPathMap(Props.goods?.skus)
+updateDisabledStatus(Props.goods?.specs, pathMap)
 </script>
 
 <style scoped lang="less">

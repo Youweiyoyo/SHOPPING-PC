@@ -58,7 +58,7 @@ export const getSelectedArr = (specs: any) => {
  * 控制选中状态
  */
 export const updateDisabledStatus = (specs: any, pathMap: any) => {
-    specs.forEach((spec, i) => {
+    specs?.forEach((spec, i) => {
         const selectedArr = getSelectedArr(specs)
         spec.values.forEach(val => {
             // 已经选中的按钮不用判断
