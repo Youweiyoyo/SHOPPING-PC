@@ -20,12 +20,14 @@
 import {useGetPathMap, updateDisabledStatus, getSelectedArr} from '../ApiHooks'
 import {defineProps, withDefaults} from 'vue'
 
-interface props {
+interface IProps {
   goods: object
+  skuId: string
 }
 
-const Props = withDefaults(defineProps<props>(), {
-  goods: () => ({})
+const Props = withDefaults(defineProps<IProps>(), {
+  goods: () => ({}),
+  skuId: ''
 })
 const changeSku = (item: any, val: any) => {
   // 1. 点击已选中
