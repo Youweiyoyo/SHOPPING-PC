@@ -1,10 +1,12 @@
 import {App} from "vue";
 import draggable from "./modules/draggable";
-import lazyLoad from './modules/LazyLoad'
+import lazyLoad from './modules/LazyLoad';
+import auth from './modules/auth';
 
 const directivesList: any = {
     draggable,
-    lazyLoad
+    lazyLoad,
+    auth
 };
 
 const directives = {
